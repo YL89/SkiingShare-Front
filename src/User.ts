@@ -1,3 +1,5 @@
+import {Coach} from './Coach';
+
 export  class User{ 
     id: number;
     firstName: String;
@@ -10,7 +12,7 @@ export  class User{
     userName: String;
     password: String;
     balance: number;
-    coach: [];
+    coach: Array<Coach>;
     item: [];
     rentItem: [];
 }
