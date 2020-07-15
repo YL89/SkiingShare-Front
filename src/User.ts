@@ -1,4 +1,5 @@
 import {Coach} from './Coach';
+import {Item} from './Item'
 
 export  class User{ 
     id: number;
@@ -13,6 +14,7 @@ export  class User{
     password: String;
     balance: number;
     coach: Array<Coach>;
-    item: [];
+    item: Array<Item>;
     rentItem: [];
+    skillLevel: number;
 }
