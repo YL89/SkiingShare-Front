@@ -1,12 +1,8 @@
 export class Ski{
-    id: number;
-    name: String;
-    images: Array<String>;
-    brand: String;
-    category: String; // All mountain, Carving, Park.
+    SkiCategory: String; // All mountain, Carving, Park.
     SkierLevel: String; // Beginner, Intermediate, Advanced, Expert.
-    Length: number;
-    Width:number;
-    Index:number;
+    SkiLength: number;
+    SkiWidth:number;
+    SkiIndex:number;
     AjustableSkiBootsSize:number;
 }

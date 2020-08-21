@@ -3,4 +3,6 @@ export class Item{
     name: String;
     images: Array<String>;
     brand: String;
+    description:String;
+    depreciatio:number; // 0-10
 }
