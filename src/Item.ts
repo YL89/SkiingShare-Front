@@ -5,4 +5,5 @@ export class Item{
     brand: String;
     description:String;
     depreciatio:number; // 0-10
+    inventory: number; 
 }
