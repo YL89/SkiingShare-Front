@@ -1,10 +1,13 @@
 import React from 'react';
 import { Navbar, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import Login from './Login.js';
+import Popup from "reactjs-popup";
+import Signup from './Signup.js';
 
 export default class Navigation extends React.Component {
 
-
     render() {
+
         return (
             <Navbar bg="white" expand='lg'>
                 <Navbar.Brand>Skiing Share</Navbar.Brand>
@@ -22,7 +25,8 @@ export default class Navigation extends React.Component {
                         </NavDropdown>
                     </Nav>
                     <Form inline>
-                        <Button variant='light'>Sign In</Button>
+                    <Popup trigger={<Button variant='light'>Sign In</Button>} modal><Login /></Popup>
+                    <Popup trigger={<Button variant='light'>Sign Up</Button>} modal><Signup /></Popup>
                     </Form>
                 </Navbar.Collapse>
             </Navbar>
