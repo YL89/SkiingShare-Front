@@ -20,11 +20,8 @@ export default class AuthService {
             });
     }
 
-    static signin(email, password) {
-        axios.post(AUTH_URL + "login", {
-            email: email,
-            password: password
-        })
+    static signin(user) {
+        axios.post("/api/auth/login", user)
             .then(response => {
                 if (response.data.accessToken) {
                     localStorage.setItem(response.data);

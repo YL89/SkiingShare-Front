@@ -1,29 +1,47 @@
-import React from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Form, Button, Container } from 'react-bootstrap';
 
-export default class Login extends React.Component {
+import AuthService from '../services/auth-services';
+import { useHistory } from 'react-router-dom';
 
-    render() {
-        return (
-            <Container>
+export default function Login() {
 
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Account</Form.Label>
-                        <Form.Control type='email' placeholder='Account email'></Form.Control>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type='password' placeholder='Password'></Form.Control>
-                    </Form.Group>
-                    <Form.Group className='text-center'>
-                        <Button className='signin-btn' variant='primary' type='submit' >Sign In</Button>{' '}
-                        <Button className='signin-btn' variant='primary' type='clear' >Clear</Button>
-                    </Form.Group>
+    const [user, setUser] = useState({});
+    let history = useHistory();
 
-                </Form>
+    const handleChange = (e) => {
+        let target = e.target;
+        let value = target.value;
+        let name = target.name;
 
-            </Container>
-        )
+        setUser(prev => ({
+            ...prev,
+            [name]: value
+        }))
     }
+
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        AuthService.signin(user);
+        history.push('/');
+    }
+
+    return (
+        <Container>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group>
+                    <Form.Label>Account</Form.Label>
+                    <Form.Control name='email' type='email' placeholder='Account email' onChange={handleChange}></Form.Control>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control name='password' type='password' placeholder='Password' onChange={handleChange}></Form.Control>
+                </Form.Group>
+                <Form.Group className='text-center'>
+                    <Button className='signin-btn' variant='primary' type='submit' >Sign In</Button>{' '}
+                    <Button className='signin-btn' variant='primary' type='clear' >Clear</Button>
+                </Form.Group>
+            </Form>
+        </Container>
+    )
 }

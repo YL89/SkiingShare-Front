@@ -3,7 +3,7 @@ import { Form, Button, Container } from 'react-bootstrap';
 import '../css/Signup.css';
 import authService from '../services/auth-services';
 
-export default function Signup(props) {
+export default function Signup() {
 
     const [newUser, setNewUser] = useState({});
 
@@ -19,7 +19,6 @@ export default function Signup(props) {
     }
 
     const handleSubmit = (e) => {
-        console.log(newUser);
         e.preventDefault();
         authService.signup(newUser);
     }
