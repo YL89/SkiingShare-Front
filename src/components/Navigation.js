@@ -23,18 +23,6 @@ function Navigation(){
     const [signInOpen,setInOpen] = React.useState(false);
     const [signUpOpen,setUpOpen] = React.useState(false);
 
-    function openInModal() {
-        setInOpen(true);
-    }
-    function closeInModal(){
-        setInOpen(false);
-    }
-    function openUpModal() {
-        setUpOpen(true);
-    }
-    function closeUpModal(){
-        setUpOpen(false);
-    }
     return (
         <Navbar bg="white" expand='lg'>
             <Navbar.Brand>Skiing Share</Navbar.Brand>
@@ -51,19 +39,19 @@ function Navigation(){
                         <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
-                <Button variant='light' onClick={openInModal}>Sign In</Button>
+                <Button variant='light' onClick={() => setInOpen(true)}>Sign In</Button>
                 <Modal
                     isOpen={signInOpen}
-                    onRequestClose={closeInModal}
+                    onRequestClose={() => setInOpen(false)}
                     style={customStyles}
                     contentLabel="Sign Up Modal"
                 >
                     <Login />
                 </Modal>
-                <Button variant='light' onClick={openUpModal}>Sign Up</Button>
+                <Button variant='light' onClick={() => setUpOpen(true)}>Sign Up</Button>
                 <Modal
                     isOpen={signUpOpen}
-                    onRequestClose={closeUpModal}
+                    onRequestClose={() => setUpOpen(false)}
                     style={customStyles}
                     contentLabel="Example Modal"
                 >
