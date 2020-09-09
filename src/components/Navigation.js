@@ -25,7 +25,6 @@ function Navigation(){
 
     return (
         <Navbar bg="white" expand='lg'>
-            <Navbar.Brand>Skiing Share</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
