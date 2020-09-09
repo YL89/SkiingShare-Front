@@ -12,7 +12,7 @@ export default class AuthService {
                     console.log(response.data.message);
                 }
                 else {
-                    console.log(response.status +" User registered.")
+                    console.log(response.status + " User registered.")
                 }
             })
             .catch(err => {
@@ -21,10 +21,10 @@ export default class AuthService {
     }
 
     static signin(user) {
-        axios.post("/api/auth/login", user)
+        return axios.post("/api/auth/login", user)
             .then(response => {
-                if (response.data.accessToken) {
-                    localStorage.setItem(response.data);
+                if (response.data.accessToken !== null) {
+                    localStorage.setItem("user", JSON.stringify(response.data));
                 }
             })
             .catch(err => {
@@ -34,5 +34,18 @@ export default class AuthService {
 
     static signout() {
         localStorage.removeItem("user");
+    }
+
+    static getCurrentUser() {
+        return JSON.parse(localStorage.getItem("user"))
+    }
+
+    static checkAuthStatus() {
+        if (JSON.parse(localStorage.getItem("user")) && JSON.parse(localStorage.getItem("user")).accessToken !== null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

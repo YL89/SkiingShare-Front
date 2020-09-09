@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 
 import AuthService from '../services/auth-services';
 import { useHistory } from 'react-router-dom';
+import UserAuthContext from '../contexts/UserAuthContext';
 
 export default function Login() {
 
+    const {authStatus, setAuthStatus} = useContext(UserAuthContext);
     const [user, setUser] = useState({});
     let history = useHistory();
 
@@ -20,10 +22,16 @@ export default function Login() {
         }))
     }
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        AuthService.signin(user);
-        history.push('/');
+        AuthService.signin(user)
+            .then(() => {
+                if (AuthService.checkAuthStatus()) {
+                    setAuthStatus(true);
+                    history.push('/');
+                }
+            });
+
     }
 
     return (

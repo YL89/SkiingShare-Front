@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import SignContext from '../../contexts/funtional-context';
+import SignContext from '../../contexts/SignContext';
 
 export default function SignButton() {
 
     const { button, setButton } = useContext(SignContext);
-    console.log(button)
+    
     if (button === "signin") {
         return (
             <Form inline>
