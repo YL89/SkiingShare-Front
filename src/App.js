@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import Header from './components/Header';
 import Home from './components/Home';

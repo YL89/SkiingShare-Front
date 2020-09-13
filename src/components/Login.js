@@ -1,13 +1,16 @@
 import React, { useState, useContext } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { Alert } from 'react-bootstrap';
 
 import AuthService from '../services/auth-services';
 import { useHistory } from 'react-router-dom';
 import UserAuthContext from '../contexts/UserAuthContext';
 
 export default function Login() {
+    const { register, handleSubmit, errors } = useForm();
 
-    const {authStatus, setAuthStatus} = useContext(UserAuthContext);
+    const { authStatus, setAuthStatus } = useContext(UserAuthContext);
     const [user, setUser] = useState({});
     let history = useHistory();
 
@@ -22,8 +25,7 @@ export default function Login() {
         }))
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = () => {
         AuthService.signin(user)
             .then(() => {
                 if (AuthService.checkAuthStatus()) {
@@ -36,15 +38,34 @@ export default function Login() {
 
     return (
         <Container>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit(onSubmit)}>
                 <Form.Group>
                     <Form.Label>Account</Form.Label>
-                    <Form.Control name='email' type='email' placeholder='Account email' onChange={handleChange}></Form.Control>
+                    <Form.Control name='email' type='text' placeholder='Account email' onChange={handleChange}
+                        ref={register({
+                            required: true,
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: (<Alert variant="danger">Invalid email address</Alert>)
+                            }
+                        })}
+                    >
+                    </Form.Control>
                 </Form.Group>
+                {errors.email && errors.email.type === "required" && (<Alert variant="danger">Email cannot be empty</Alert>)}
+                {errors.email && errors.email.message}
+
                 <Form.Group>
                     <Form.Label>Password</Form.Label>
-                    <Form.Control name='password' type='password' placeholder='Password' onChange={handleChange}></Form.Control>
+                    <Form.Control name='password' type='password' placeholder='Password' onChange={handleChange}
+                        ref={register({
+                            required: true
+                        })}
+                    >
+                    </Form.Control>
                 </Form.Group>
+                {errors.password && errors.password.type === "required" && (<Alert variant="danger">Password cannot be empty</Alert>)}
+
                 <Form.Group className='text-center'>
                     <Button className='signin-btn' variant='primary' type='submit' >Sign In</Button>{' '}
                     <Button className='signin-btn' variant='primary' type='clear' >Clear</Button>
